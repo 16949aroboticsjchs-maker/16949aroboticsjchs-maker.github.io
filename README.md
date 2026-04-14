@@ -1,1 +1,625 @@
-# JCHS-ROBOTICS
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JCHS Robotics Summer Camp</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a14;
+    --panel: #0a1628;
+    --blue: #00d4ff;
+    --electric: #00ff88;
+    --orange: #ff6b00;
+    --white: #eef6ff;
+    --dim: #4a6080;
+    --glow-blue: 0 0 20px #00d4ff88, 0 0 60px #00d4ff33;
+    --glow-green: 0 0 20px #00ff8888, 0 0 60px #00ff8833;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── TICKER ─── */
+  .ticker-wrap {
+    overflow: hidden;
+    background: rgba(0,255,136,0.06);
+    border-top: 1px solid rgba(0,255,136,0.15);
+    border-bottom: 1px solid rgba(0,255,136,0.15);
+    padding: 12px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .ticker {
+    display: flex;
+    gap: 60px;
+    width: max-content;
+    animation: ticker 24s linear infinite;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--electric);
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px 40px;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--blue);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: rgba(0,212,255,0.07);
+    margin-bottom: 28px;
+    animation: fadeDown 0.8s ease both;
+  }
+  .badge::before { content: '⬡'; font-size: 0.9rem; }
+
+  .hero-tag {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--electric);
+    margin-bottom: 14px;
+    animation: fadeDown 0.9s 0.1s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.8rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    animation: fadeDown 1s 0.2s ease both;
+  }
+  .hero-title .line1 { display: block; color: var(--white); }
+  .hero-title .line2 {
+    display: block;
+    background: linear-gradient(90deg, var(--blue), var(--electric));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-title .line3 {
+    display: block;
+    color: var(--white);
+    font-size: 0.55em;
+    letter-spacing: 0.15em;
+    margin-top: 8px;
+  }
+
+  .hero-sub {
+    max-width: 540px;
+    margin: 28px auto 0;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: #8faabf;
+    font-weight: 300;
+    line-height: 1.7;
+    animation: fadeDown 1s 0.35s ease both;
+  }
+
+  /* ─── PRICE ─── */
+  .price-wrap {
+    margin: 44px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    animation: fadeDown 1s 0.5s ease both;
+  }
+  .price-box {
+    position: relative;
+    background: linear-gradient(135deg, #0a1f3a, #0d2545);
+    border: 1px solid rgba(0,212,255,0.35);
+    border-radius: 20px;
+    padding: 28px 56px;
+    text-align: center;
+    box-shadow: var(--glow-blue), inset 0 1px 0 rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .price-box:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 0 40px #00d4ffaa, 0 0 100px #00d4ff44;
+  }
+  .price-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .price-num {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--white);
+  }
+  .price-num sup { font-size: 0.45em; vertical-align: top; margin-top: 10px; color: var(--electric); }
+  .price-detail { font-size: 0.85rem; color: var(--dim); margin-top: 8px; letter-spacing: 0.05em; }
+  .price-corner {
+    position: absolute; top: -1px; right: -1px;
+    width: 52px; height: 52px;
+    border-top: 2px solid var(--electric);
+    border-right: 2px solid var(--electric);
+    border-radius: 0 18px 0 0;
+  }
+  .price-corner2 {
+    position: absolute; bottom: -1px; left: -1px;
+    width: 52px; height: 52px;
+    border-bottom: 2px solid var(--electric);
+    border-left: 2px solid var(--electric);
+    border-radius: 0 0 0 18px;
+  }
+
+  /* ─── ROBOT ─── */
+  .robot-wrap {
+    margin: 50px auto -10px;
+    animation: float 4s ease-in-out infinite, fadeDown 1s 0.6s ease both;
+    position: relative; z-index: 2;
+    width: fit-content;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-16px); }
+  }
+
+  /* ─── COUNTDOWN ─── */
+  .countdown-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    animation: fadeDown 1s 0.7s ease both;
+  }
+  .countdown-block {
+    text-align: center;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-width: 70px;
+  }
+  .countdown-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--blue);
+    line-height: 1;
+  }
+  .countdown-unit {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 6px;
+  }
+
+  /* ─── PULSE ─── */
+  .pulse {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--electric);
+    box-shadow: var(--glow-green);
+    animation: pulse 1.6s ease-in-out infinite;
+    margin-right: 6px;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: var(--panel);
+    border: 1px solid rgba(0,212,255,0.18);
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 0 24px;
+    position: relative; z-index: 1;
+  }
+  .stat {
+    flex: 1; min-width: 150px;
+    padding: 36px 24px;
+    text-align: center;
+    border-right: 1px solid rgba(0,212,255,0.12);
+    transition: background 0.3s;
+  }
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: rgba(0,212,255,0.05); }
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.8rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--blue), var(--electric));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.8rem; color: var(--dim);
+    text-transform: uppercase; letter-spacing: 0.12em; margin-top: 8px;
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    position: relative; z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+  .section-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--electric); margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 700; line-height: 1.1; margin-bottom: 40px;
+  }
+
+  /* ─── CARDS ─── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid rgba(0,212,255,0.12);
+    border-radius: 16px; padding: 32px 28px;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    cursor: pointer; position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,212,255,0.04), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,0.5); box-shadow: 0 12px 40px rgba(0,212,255,0.15); }
+  .card:hover::before { opacity: 1; }
+  .card-icon { font-size: 2.4rem; margin-bottom: 18px; display: block; filter: drop-shadow(0 0 8px rgba(0,212,255,0.5)); transition: transform 0.3s; }
+  .card:hover .card-icon { transform: scale(1.15) rotate(-5deg); }
+  .card-title { font-family: 'Orbitron', monospace; font-size: 0.95rem; font-weight: 700; color: var(--blue); margin-bottom: 10px; letter-spacing: 0.05em; }
+  .card-text { font-size: 0.9rem; color: #7a9ab8; line-height: 1.65; }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent);
+  }
+
+  /* ─── LEARN ─── */
+  .learn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .learn-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 20px;
+    border: 1px solid rgba(0,255,136,0.12);
+    border-radius: 12px;
+    background: rgba(0,255,136,0.03);
+    transition: background 0.3s, border-color 0.3s, transform 0.3s;
+  }
+  .learn-item:hover { background: rgba(0,255,136,0.07); border-color: rgba(0,255,136,0.35); transform: translateX(4px); }
+  .learn-check {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--electric), #00cc66);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; flex-shrink: 0; margin-top: 2px;
+    box-shadow: var(--glow-green);
+  }
+  .learn-text { font-size: 0.9rem; color: #9dbdd4; line-height: 1.5; }
+  .learn-text strong { color: var(--white); display: block; margin-bottom: 2px; font-size: 0.95rem; }
+
+  /* ─── CTA — fully centered ─── */
+  .cta-section {
+    position: relative; z-index: 1;
+    padding: 100px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(0,255,136,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .cta-sub {
+    font-size: 1.05rem; color: #7a9ab8;
+    max-width: 480px;
+    margin: 0 auto 40px auto;
+    line-height: 1.7;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #00d4ff, #00ff88);
+    color: #030810;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 18px 48px;
+    border-radius: 100px; border: none; cursor: pointer;
+    box-shadow: 0 0 30px rgba(0,212,255,0.4), 0 0 80px rgba(0,212,255,0.15);
+    transition: transform 0.25s, box-shadow 0.25s, filter 0.25s;
+    text-decoration: none;
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 0 50px rgba(0,212,255,0.6), 0 0 120px rgba(0,212,255,0.25);
+    filter: brightness(1.1);
+  }
+  .cta-note {
+    margin-top: 24px; font-size: 0.8rem; color: var(--dim);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid rgba(0,212,255,0.1);
+    padding: 30px 24px;
+    text-align: center;
+    font-size: 0.8rem; color: var(--dim); letter-spacing: 0.05em;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 600px) {
+    .stat { min-width: 100%; border-right: none; border-bottom: 1px solid rgba(0,212,255,0.12); }
+    .price-box { padding: 24px 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>⬡ VEX ROBOTICS</span><span>⬡ STEM LEADERSHIP</span><span>⬡ TEAMWORK SKILLS</span>
+    <span>⬡ HANDS-ON BUILDING</span><span>⬡ CODING & PROGRAMMING</span><span>⬡ ENGINEERING DESIGN</span>
+    <span>⬡ SUMMER 2026</span><span>⬡ JCHS ROBOTICS</span><span>⬡ 2 WEEKS · $175</span>
+    <span>⬡ VEX ROBOTICS</span><span>⬡ STEM LEADERSHIP</span><span>⬡ TEAMWORK SKILLS</span>
+    <span>⬡ HANDS-ON BUILDING</span><span>⬡ CODING & PROGRAMMING</span><span>⬡ ENGINEERING DESIGN</span>
+    <span>⬡ SUMMER 2026</span><span>⬡ JCHS ROBOTICS</span><span>⬡ 2 WEEKS · $175</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Summer 2026 — Enrollment Open</div>
+  <p class="hero-tag">John Champe High School Presents</p>
+  <h1 class="hero-title">
+    <span class="line1">JCHS</span>
+    <span class="line2">ROBOTICS</span>
+    <span class="line3">Summer Camp · 2026–27</span>
+  </h1>
+  <p class="hero-sub">Two weeks of hands-on engineering, VEX robotics, and real-world problem solving — the ultimate STEM experience for future leaders.</p>
+
+  <div class="price-wrap">
+    <div class="price-box" onclick="this.style.transform='scale(0.97)';setTimeout(()=>this.style.transform='',150)">
+      <div class="price-corner"></div>
+      <div class="price-corner2"></div>
+      <div class="price-label">Full Camp Tuition</div>
+      <div class="price-num"><sup>$</sup>175</div>
+      <div class="price-detail">2 Weeks · All Materials Included</div>
+    </div>
+    <p style="font-size:0.78rem;color:var(--dim);letter-spacing:0.08em;margin-top:10px;">
+      <span class="pulse"></span>Spots are limited — register early!
+    </p>
+  </div>
+
+  <div class="countdown-wrap">
+    <div class="countdown-block"><div class="countdown-num" id="cd-days">00</div><div class="countdown-unit">Days</div></div>
+    <div class="countdown-block"><div class="countdown-num" id="cd-hrs">00</div><div class="countdown-unit">Hours</div></div>
+    <div class="countdown-block"><div class="countdown-num" id="cd-min">00</div><div class="countdown-unit">Minutes</div></div>
+    <div class="countdown-block"><div class="countdown-num" id="cd-sec">00</div><div class="countdown-unit">Seconds</div></div>
+  </div>
+  <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.12em;margin-top:10px;text-transform:uppercase;">Until Camp Begins — June 22, 2026</p>
+
+  <div class="robot-wrap">
+    <svg width="220" height="160" viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="55" y="60" width="110" height="80" rx="14" fill="#0a1628" stroke="#00d4ff" stroke-width="1.5"/>
+      <rect x="72" y="76" width="76" height="46" rx="8" fill="#050a14" stroke="#00ff88" stroke-width="1"/>
+      <circle cx="89" cy="93" r="5" fill="#00ff88" opacity="0.9"/>
+      <circle cx="110" cy="93" r="5" fill="#00d4ff" opacity="0.9"/>
+      <circle cx="131" cy="93" r="5" fill="#ff6b00" opacity="0.9"/>
+      <rect x="80" y="108" width="60" height="6" rx="3" fill="#00d4ff" opacity="0.4"/>
+      <rect x="68" y="20" width="84" height="44" rx="12" fill="#0d1e38" stroke="#00d4ff" stroke-width="1.5"/>
+      <rect x="97" y="58" width="26" height="10" rx="4" fill="#0a1628" stroke="#00d4ff" stroke-width="1"/>
+      <rect x="80" y="32" width="22" height="14" rx="5" fill="#00d4ff" opacity="0.25"/>
+      <rect x="118" y="32" width="22" height="14" rx="5" fill="#00d4ff" opacity="0.25"/>
+      <rect x="86" y="35" width="10" height="8" rx="3" fill="#00d4ff"/>
+      <rect x="124" y="35" width="10" height="8" rx="3" fill="#00d4ff"/>
+      <line x1="110" y1="20" x2="110" y2="6" stroke="#00d4ff" stroke-width="2"/>
+      <circle cx="110" cy="4" r="4" fill="#00ff88"/>
+      <rect x="22" y="65" width="32" height="14" rx="6" fill="#0a1628" stroke="#00d4ff" stroke-width="1.2" transform="rotate(-8 38 72)"/>
+      <rect x="166" y="65" width="32" height="14" rx="6" fill="#0a1628" stroke="#00d4ff" stroke-width="1.2" transform="rotate(8 182 72)"/>
+      <ellipse cx="80" cy="145" rx="16" ry="8" fill="#0d1e38" stroke="#00d4ff" stroke-width="1.2"/>
+      <ellipse cx="140" cy="145" rx="16" ry="8" fill="#0d1e38" stroke="#00d4ff" stroke-width="1.2"/>
+      <ellipse cx="80" cy="145" rx="7" ry="4" fill="#00d4ff" opacity="0.5"/>
+      <ellipse cx="140" cy="145" rx="7" ry="4" fill="#00d4ff" opacity="0.5"/>
+    </svg>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar reveal">
+  <div class="stat"><div class="stat-num">2</div><div class="stat-label">Weeks of Camp</div></div>
+  <div class="stat"><div class="stat-num">$175</div><div class="stat-label">Total Cost</div></div>
+  <div class="stat"><div class="stat-num">VEX</div><div class="stat-label">Robotics Platform</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Hands-On Learning</div></div>
+</div>
+
+<!-- WHY ATTEND -->
+<section>
+  <div class="reveal">
+    <p class="section-label">Why Attend</p>
+    <h2 class="section-title">Built for the Next Generation of <span style="color:var(--blue)">Innovators</span></h2>
+  </div>
+  <div class="cards">
+    <div class="card reveal"><span class="card-icon">🤖</span><div class="card-title">VEX Robotics</div><p class="card-text">Get hands-on with industry-standard VEX robotics kits. Design, build, and program robots from the ground up — no experience required.</p></div>
+    <div class="card reveal"><span class="card-icon">🏆</span><div class="card-title">Leadership Skills</div><p class="card-text">Real leadership isn't taught in classrooms alone. Campers take on team roles, manage projects, and lead their squad to success.</p></div>
+    <div class="card reveal"><span class="card-icon">🤝</span><div class="card-title">Teamwork & Collaboration</div><p class="card-text">Every robot is built by a team. Learn how to communicate, delegate, problem-solve, and celebrate victories together.</p></div>
+    <div class="card reveal"><span class="card-icon">💡</span><div class="card-title">Creative Engineering</div><p class="card-text">No two robots are the same. Campers brainstorm original designs, prototype solutions, and iterate like real engineers.</p></div>
+    <div class="card reveal"><span class="card-icon">💻</span><div class="card-title">Coding & Programming</div><p class="card-text">From simple commands to complex autonomous routines — learn the basics of robot programming in a fun, supportive environment.</p></div>
+    <div class="card reveal"><span class="card-icon">🚀</span><div class="card-title">Competition Mindset</div><p class="card-text">Finish the camp with a friendly in-house robot competition — putting your skills to the ultimate test under game-day pressure.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LEARN -->
+<section>
+  <div class="reveal">
+    <p class="section-label">Curriculum Highlights</p>
+    <h2 class="section-title">What You'll <span style="color:var(--electric)">Master</span></h2>
+  </div>
+  <div class="learn-grid">
+    <div class="learn-item reveal"><div class="learn-check">✓</div><div class="learn-text"><strong>VEX IQ & V5 Systems</strong>Hardware assembly, sensors, motors, and mechanisms</div></div>
+    <div class="learn-item reveal"><div class="learn-check">✓</div><div class="learn-text"><strong>Engineering Design Process</strong>Sketch, prototype, test, revise — think like an engineer</div></div>
+    <div class="learn-item reveal"><div class="learn-check">✓</div><div class="learn-text"><strong>Block & Text Coding</strong>VEXcode, drag-and-drop logic, and real programming fundamentals</div></div>
+    <div class="learn-item reveal"><div class="learn-check">✓</div><div class="learn-text"><strong>Autonomous Navigation</strong>Teach your robot to think and move on its own</div></div>
+    <div class="learn-item reveal"><div class="learn-check">✓</div><div class="learn-text"><strong>Driver Control Skills</strong>Master the controls and compete head-to-head</div></div>
+    <div class="learn-item reveal"><div class="learn-check">✓</div><div class="learn-text"><strong>Team Strategy & Communication</strong>Plan roles, divide tasks, and execute as one unit</div></div>
+    <div class="learn-item reveal"><div class="learn-check">✓</div><div class="learn-text"><strong>Game Analysis</strong>Study game rules, optimize strategy, outthink opponents</div></div>
+    <div class="learn-item reveal"><div class="learn-check">✓</div><div class="learn-text"><strong>Presentation & Notebook Skills</strong>Document your build process like a real competition team</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<div class="cta-section reveal">
+  <h2 class="cta-title">Ready to Build Something<br><span style="color:var(--electric)">Amazing?</span></h2>
+  <p class="cta-sub">Only $175 for two full weeks of robotics, coding, leadership, and memories that'll last a lifetime. Seats fill fast.</p>
+  <a class="cta-btn" href="mailto:16949aroboticsjchs@gmail.com?subject=JCHS%20Robotics%20Summer%20Camp%20Registration&body=Hi%2C%20I%20am%20interested%20in%20registering%20for%20the%20JCHS%20Robotics%20Summer%20Camp!%20Please%20send%20me%20more%20information.">⬡ &nbsp;Register Now</a>
+  <p class="cta-note">To register, email us at <a href="mailto:16949aroboticsjchs@gmail.com" style="color:var(--blue); text-decoration:none; border-bottom: 1px solid rgba(0,212,255,0.4);">16949aroboticsjchs@gmail.com</a></p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 JCHS Robotics — John Champe High School &nbsp;·&nbsp; <span style="color:var(--blue)">Loudoun County, Virginia</span></p>
+</footer>
+
+<script>
+  // COUNTDOWN TO JUNE 22, 2026
+  function updateCountdown() {
+    const target = new Date('2026-06-22T09:00:00');
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      ['cd-days','cd-hrs','cd-min','cd-sec'].forEach(id => document.getElementById(id).textContent = '00');
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-hrs').textContent  = String(h).padStart(2,'0');
+    document.getElementById('cd-min').textContent  = String(m).padStart(2,'0');
+    document.getElementById('cd-sec').textContent  = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // SCROLL REVEAL
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), 80); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+
+  // CARD STAGGER
+  document.querySelectorAll('.cards .card').forEach((c, i) => c.style.transitionDelay = `${i * 0.07}s`);
+
+  // LED BLINK
+  const leds = document.querySelectorAll('circle[fill="#00ff88"], circle[fill="#00d4ff"], circle[fill="#ff6b00"]');
+  setInterval(() => {
+    leds.forEach(l => {
+      const o = parseFloat(l.getAttribute('opacity') || 1);
+      l.setAttribute('opacity', o > 0.5 ? (0.3 + Math.random() * 0.3).toFixed(2) : '0.9');
+    });
+  }, 800);
+</script>
+</body>
+</html>
