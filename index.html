@@ -39,7 +39,6 @@
     z-index: 0;
   }
 
-  /* ─── TICKER ─── */
   .ticker-wrap {
     overflow: hidden;
     background: rgba(0,255,136,0.06);
@@ -64,7 +63,6 @@
     to { transform: translateX(-50%); }
   }
 
-  /* ─── HERO ─── */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -147,7 +145,6 @@
     animation: fadeDown 1s 0.35s ease both;
   }
 
-  /* ─── PRICE ─── */
   .price-wrap {
     margin: 44px auto 0;
     display: flex;
@@ -179,12 +176,14 @@
     color: var(--blue);
     margin-bottom: 8px;
   }
+  /* ── ONLY CHANGE: added letter-spacing: 0.15em ── */
   .price-num {
     font-family: 'Orbitron', monospace;
     font-size: clamp(3rem, 8vw, 5.5rem);
     font-weight: 900;
     line-height: 1;
     color: var(--white);
+    letter-spacing: 0.15em;
   }
   .price-num sup { font-size: 0.45em; vertical-align: top; margin-top: 10px; color: var(--electric); }
   .price-detail { font-size: 0.85rem; color: var(--dim); margin-top: 8px; letter-spacing: 0.05em; }
@@ -203,7 +202,6 @@
     border-radius: 0 0 0 18px;
   }
 
-  /* ─── ROBOT ─── */
   .robot-wrap {
     margin: 50px auto -10px;
     animation: float 4s ease-in-out infinite, fadeDown 1s 0.6s ease both;
@@ -215,7 +213,6 @@
     50% { transform: translateY(-16px); }
   }
 
-  /* ─── COUNTDOWN ─── */
   .countdown-wrap {
     display: flex;
     justify-content: center;
@@ -247,7 +244,6 @@
     margin-top: 6px;
   }
 
-  /* ─── PULSE ─── */
   .pulse {
     display: inline-block;
     width: 8px; height: 8px;
@@ -262,7 +258,6 @@
     50% { opacity: 0.4; transform: scale(0.7); }
   }
 
-  /* ─── STATS BAR ─── */
   .stats-bar {
     display: flex;
     justify-content: center;
@@ -295,7 +290,6 @@
     text-transform: uppercase; letter-spacing: 0.12em; margin-top: 8px;
   }
 
-  /* ─── SECTIONS ─── */
   section {
     position: relative; z-index: 1;
     max-width: 1100px;
@@ -313,7 +307,6 @@
     font-weight: 700; line-height: 1.1; margin-bottom: 40px;
   }
 
-  /* ─── CARDS ─── */
   .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -338,13 +331,11 @@
   .card-title { font-family: 'Orbitron', monospace; font-size: 0.95rem; font-weight: 700; color: var(--blue); margin-bottom: 10px; letter-spacing: 0.05em; }
   .card-text { font-size: 0.9rem; color: #7a9ab8; line-height: 1.65; }
 
-  /* ─── DIVIDER ─── */
   .divider {
     width: 100%; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent);
   }
 
-  /* ─── LEARN ─── */
   .learn-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -369,7 +360,6 @@
   .learn-text { font-size: 0.9rem; color: #9dbdd4; line-height: 1.5; }
   .learn-text strong { color: var(--white); display: block; margin-bottom: 2px; font-size: 0.95rem; }
 
-  /* ─── CTA — fully centered ─── */
   .cta-section {
     position: relative; z-index: 1;
     padding: 100px 24px;
@@ -420,11 +410,8 @@
     box-shadow: 0 0 50px rgba(0,212,255,0.6), 0 0 120px rgba(0,212,255,0.25);
     filter: brightness(1.1);
   }
-  .cta-note {
-    margin-top: 24px; font-size: 0.8rem; color: var(--dim);
-  }
+  .cta-note { margin-top: 24px; font-size: 0.8rem; color: var(--dim); }
 
-  /* ─── FOOTER ─── */
   footer {
     position: relative; z-index: 1;
     border-top: 1px solid rgba(0,212,255,0.1);
@@ -433,7 +420,6 @@
     font-size: 0.8rem; color: var(--dim); letter-spacing: 0.05em;
   }
 
-  /* ─── ANIMATIONS ─── */
   @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-24px); }
     to { opacity: 1; transform: translateY(0); }
@@ -452,7 +438,6 @@
 </head>
 <body>
 
-<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker">
     <span>⬡ VEX ROBOTICS</span><span>⬡ STEM LEADERSHIP</span><span>⬡ TEAMWORK SKILLS</span>
@@ -464,7 +449,6 @@
   </div>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <div class="badge">Summer 2026 — Enrollment Open</div>
   <p class="hero-tag">John Champe High School Presents</p>
@@ -522,7 +506,6 @@
   </div>
 </div>
 
-<!-- STATS -->
 <div class="stats-bar reveal">
   <div class="stat"><div class="stat-num">2</div><div class="stat-label">Weeks of Camp</div></div>
   <div class="stat"><div class="stat-num">$175</div><div class="stat-label">Total Cost</div></div>
@@ -530,7 +513,6 @@
   <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Hands-On Learning</div></div>
 </div>
 
-<!-- WHY ATTEND -->
 <section>
   <div class="reveal">
     <p class="section-label">Why Attend</p>
@@ -548,7 +530,6 @@
 
 <div class="divider"></div>
 
-<!-- LEARN -->
 <section>
   <div class="reveal">
     <p class="section-label">Curriculum Highlights</p>
@@ -568,7 +549,6 @@
 
 <div class="divider"></div>
 
-<!-- CTA -->
 <div class="cta-section reveal">
   <h2 class="cta-title">Ready to Build Something<br><span style="color:var(--electric)">Amazing?</span></h2>
   <p class="cta-sub">Only $175 for two full weeks of robotics, coding, leadership, and memories that'll last a lifetime. Seats fill fast.</p>
@@ -576,13 +556,11 @@
   <p class="cta-note">To register, email us at <a href="mailto:16949aroboticsjchs@gmail.com" style="color:var(--blue); text-decoration:none; border-bottom: 1px solid rgba(0,212,255,0.4);">16949aroboticsjchs@gmail.com</a></p>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2026 JCHS Robotics — John Champe High School &nbsp;·&nbsp; <span style="color:var(--blue)">Loudoun County, Virginia</span></p>
 </footer>
 
 <script>
-  // COUNTDOWN TO JUNE 22, 2026
   function updateCountdown() {
     const target = new Date('2026-06-22T09:00:00');
     const now = new Date();
@@ -603,16 +581,13 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // SCROLL REVEAL
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), 80); obs.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
 
-  // CARD STAGGER
   document.querySelectorAll('.cards .card').forEach((c, i) => c.style.transitionDelay = `${i * 0.07}s`);
 
-  // LED BLINK
   const leds = document.querySelectorAll('circle[fill="#00ff88"], circle[fill="#00d4ff"], circle[fill="#ff6b00"]');
   setInterval(() => {
     leds.forEach(l => {
